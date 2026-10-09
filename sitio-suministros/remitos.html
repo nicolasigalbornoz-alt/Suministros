@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis remitos - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageRemitos">
+        <div class="panel-header">
+          <div>
+            <h2>Mis remitos</h2>
+            <p class="subtitle">Suministros ya aprobados — descargue el remito de cada uno acá.</p>
+          </div>
+        </div>
+
+        <div class="analitica-modo-selector" role="tablist">
+          <button type="button" class="analitica-modo-btn active" id="modoRemitosConCuotaBtn" role="tab" aria-selected="true">Con cuota</button>
+          <button type="button" class="analitica-modo-btn" id="modoRemitosExcepcionalBtn" role="tab" aria-selected="false">Excepcionales (sin cuota)</button>
+        </div>
+
+        <div id="vistaRemitosConCuota">
+          <div class="dashboard-section">
+            <div class="section-header-row">
+              <h3>Aprobados con cuota</h3>
+            </div>
+            <div id="remitosConCuotaList" class="aprobacion-list"></div>
+          </div>
+        </div>
+
+        <div id="vistaRemitosExcepcional" hidden>
+          <p class="detail-text">Se cargaron con la Fuente ya excedida y necesitaron una aprobación excepcional — el remito recién queda disponible acá, una vez aprobados.</p>
+          <div class="dashboard-section">
+            <div class="section-header-row">
+              <h3>Aprobados excepcionalmente</h3>
+            </div>
+            <div id="remitosExcepcionalList" class="aprobacion-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="remito.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

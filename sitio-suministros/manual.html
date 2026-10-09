@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de uso - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+  <style>
+    /* Estilos propios de esta página de referencia (documento largo),
+       separados de styles.css porque no los usa el resto de la app. */
+    .manual-main {
+      background-color: var(--light-gray);
+      padding: 40px 30px 80px;
+      min-height: 100vh;
+    }
+
+    .manual-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      padding: 45px 50px;
+    }
+
+    .manual-container h1 {
+      font-size: clamp(30px, 3.6vw, 42px);
+      line-height: 1.1;
+      color: var(--moron-red);
+      margin-bottom: 10px;
+    }
+
+    .manual-container > .subtitle {
+      margin-bottom: 30px;
+    }
+
+    .manual-toc {
+      background: var(--panel);
+      border: 1px solid var(--hairline);
+      border-left: 3px solid var(--primary-red);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 40px;
+    }
+
+    .manual-toc h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+
+    .manual-toc ol {
+      columns: 2;
+      column-gap: 30px;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .manual-toc a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .manual-toc a:hover {
+      color: var(--primary-red);
+      text-decoration: underline;
+    }
+
+    .manual-section {
+      margin-bottom: 46px;
+      scroll-margin-top: 20px;
+    }
+
+    .manual-section h2 {
+      font: 700 21px "Neo Sans", sans-serif;
+      letter-spacing: 0;
+      color: var(--dark-gray);
+      border-bottom: 2px solid var(--primary-red);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .manual-section h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary-red);
+      margin: 22px 0 8px;
+    }
+
+    .manual-section h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark-gray);
+      margin: 16px 0 6px;
+    }
+
+    .manual-section code {
+      background: var(--panel);
+      border: 1px solid var(--hairline);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 12px;
+      font-family: "Consolas", "Courier New", monospace;
+    }
+
+    .manual-section p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .manual-section ul,
+    .manual-section ol {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text);
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .manual-section li {
+      margin-bottom: 4px;
+    }
+
+    .manual-note {
+      background: var(--panel);
+      border: 1px solid var(--hairline);
+      border-left: 3px solid var(--gray);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 14px 0;
+    }
+
+    .manual-note strong {
+      color: var(--dark-gray);
+    }
+
+    .manual-warn {
+      border-left-color: var(--primary-red);
+      background: var(--red-tint);
+    }
+
+    .manual-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 14px 0 20px;
+    }
+
+    .manual-table th,
+    .manual-table td {
+      border: 1px solid var(--hairline);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .manual-table th {
+      background: var(--panel);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .manual-table td.center {
+      text-align: center;
+    }
+
+    .manual-check {
+      color: var(--dark-gray);
+      font-weight: 700;
+    }
+
+    .manual-cross {
+      color: var(--gray);
+    }
+
+    .manual-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .manual-badge-real {
+      background: var(--panel);
+      color: var(--dark-gray);
+    }
+
+    .manual-badge-provisional {
+      background: var(--red-tint);
+      color: var(--primary-red);
+    }
+
+    .manual-back-top {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--gray);
+      text-decoration: none;
+    }
+
+    .manual-back-top:hover {
+      color: var(--primary-red);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .manual-container {
+        padding: 28px 22px;
+      }
+
+      .manual-toc ol {
+        columns: 1;
+      }
+
+      .manual-main {
+        padding: 24px 16px 48px;
+      }
+
+      /* La tabla de permisos se desplaza dentro de su lugar, no la página. */
+      .manual-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="municipal-header">
+    <div class="municipal-header-inner">
+      <a href="dashboard.html" class="municipal-brand" aria-label="Sistema de Suministros · Inicio">
+        <img src="/brand/moron-logo.png" alt="Municipio de Morón" width="72" height="74" />
+        <span>Subsecretaría de Planificación<br />Presupuestaria y Estadística<br /><strong>Manual de uso</strong></span>
+      </a>
+      <div class="municipal-account">
+        <a class="header-button" href="dashboard.html">Volver al sistema<span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="manual-main">
+    <div class="manual-container">
+      <h1>Manual de uso del Sistema de Suministros</h1>
+      <p class="subtitle">Subsecretaría de Planificación Presupuestaria y Estadística — Municipio de Morón</p>
+
+      <nav class="manual-toc" aria-label="Índice">
+        <h2>Contenido</h2>
+        <ol>
+          <li><a href="#intro">1. Qué es este sistema</a></li>
+          <li><a href="#login">2. Cómo ingresar</a></li>
+          <li><a href="#perfiles">3. Perfiles de usuario</a></li>
+          <li><a href="#inicio">4. Inicio</a></li>
+          <li><a href="#suministros">5. Suministros</a></li>
+          <li><a href="#nuevo">6. Nuevo suministro</a></li>
+          <li><a href="#presupuesto">7. Presupuesto</a></li>
+          <li><a href="#difusion">8. Difusión</a></li>
+          <li><a href="#devengamiento">9. Devengamiento</a></li>
+          <li><a href="#analitica">10. Analítica</a></li>
+          <li><a href="#aprobaciones">11. Aprobaciones</a></li>
+          <li><a href="#alertas">12. Alertas de renovación</a></li>
+          <li><a href="#remitos">13. Mis remitos</a></li>
+          <li><a href="#sesion">14. Cerrar sesión</a></li>
+          <li><a href="#faq">15. Preguntas frecuentes</a></li>
+        </ol>
+      </nav>
+
+      <section class="manual-section" id="intro">
+        <h2>1. Qué es este sistema</h2>
+        <p>
+          El Sistema de Suministros es la herramienta interna de la Subsecretaría de Planificación
+          Presupuestaria y Estadística para hacer seguimiento de los suministros solicitados por las
+          distintas Secretarías del Municipio, controlar la cuota presupuestaria de cada una y ordenar
+          el circuito de aprobación de nuevas autorizaciones.
+        </p>
+        <p>
+          Tiene diez secciones — <strong>Inicio, Suministros, Nuevo suministro, Presupuesto, Difusión,
+          Devengamiento, Analítica, Aprobaciones, Alertas</strong> y <strong>Mis remitos</strong> — y lo que cada
+          usuario puede ver y hacer en cada una depende de su perfil (ver sección 3).
+        </p>
+        <div class="manual-note">
+          <strong>De dónde salen los datos.</strong> La planilla de suministros y la cuota por Secretaría
+          se cargan desde la planilla oficial y desde los exports de RAFAM (el sistema municipal de
+          administración financiera); no son datos inventados ni de prueba. Lo único que es
+          <strong>provisional</strong> es lo que usted mismo carga en <strong>Nuevo suministro</strong>
+          hasta que quede reflejado en RAFAM y, si corresponde, sea aprobado (ver secciones 6 y 11).
+        </div>
+      </section>
+
+      <section class="manual-section" id="login">
+        <h2>2. Cómo ingresar</h2>
+        <p>El acceso es por <strong>legajo</strong>, no por usuario ni email.</p>
+        <ol>
+          <li>Ingrese su número de legajo (6 dígitos) en el campo <strong>Legajo</strong>.</li>
+          <li>Ingrese la clave en el campo <strong>Clave</strong>. Puede tocar "Ver" para mostrarla mientras la escribe.</li>
+          <li>Opcionalmente, marque <strong>Recordar legajo</strong> para que la próxima vez el campo Legajo venga completado.</li>
+          <li>Presione <strong>Iniciar sesión</strong>.</li>
+        </ol>
+        <p>Para salir del sistema, ver la sección 14 (Cerrar sesión).</p>
+      </section>
+
+      <section class="manual-section" id="perfiles">
+        <h2>3. Perfiles de usuario</h2>
+        <p>Existen seis tipos de perfil. El acceso a cada sección depende del perfil de la sesión:</p>
+        <table class="manual-table">
+          <thead>
+            <tr>
+              <th>Perfil</th>
+              <th class="center">Suministros</th>
+              <th class="center">Nuevo suministro</th>
+              <th class="center">Presupuesto</th>
+              <th>Qué puede hacer además</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Administración General · Acceso total</strong><br><span style="color:var(--gray)">(legajo 310019)</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td>Es el único perfil con acceso a <strong>Analítica</strong> y <strong>Aprobaciones</strong>: revisa y aprueba los suministros pendientes, y puede aprobar/desaprobar y cambiar la oficina de cualquier suministro desde Suministros.</td>
+            </tr>
+            <tr>
+              <td><strong>Responsable de Área</strong></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td>Cargar autorizaciones provisionales en Nuevo suministro.</td>
+            </tr>
+            <tr>
+              <td><strong>Dirección de Compras · Validación</strong></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-cross">—</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td>Puede aprobar, desaprobar y cambiar la oficina de cada suministro desde su detalle; no carga suministros nuevos.</td>
+            </tr>
+            <tr>
+              <td><strong>Responsable de Área · Autoridad máxima</strong></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-cross">—</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td>Igual que Dirección de Compras: puede aprobar, desaprobar y cambiar la oficina de cada suministro.</td>
+            </tr>
+            <tr>
+              <td><strong>Consulta / Auditoría</strong></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-cross">—</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td>Solo lectura en todas las secciones.</td>
+            </tr>
+            <tr>
+              <td><strong>Usuario de Secretaría</strong><br><span style="color:var(--gray)">(un legajo por Secretaría: Economía, Salud, Educación, etc.)</span></td>
+              <td class="center"><span class="manual-check">✓</span><br><span style="color:var(--gray);font-size:11px">solo los suyos</span></td>
+              <td class="center"><span class="manual-check">✓</span></td>
+              <td class="center"><span class="manual-cross">—</span></td>
+              <td>Carga suministros, ve <strong>sus</strong> suministros con la oficina en la que está cada uno y consulta la cuota real de su propia Secretaría. No ve el informe de Presupuesto del Municipio ni los suministros de otras Secretarías.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <strong>Inicio</strong>, <strong>Difusión</strong>, <strong>Devengamiento</strong>,
+          <strong>Alertas</strong> y <strong>Mis remitos</strong> están disponibles para los seis perfiles
+          (cada uno ve únicamente lo propio). Si un perfil no tiene acceso a una sección, esa opción
+          directamente no aparece en el menú de arriba; si de todas formas se entra por la dirección web,
+          el sistema muestra un aviso de acceso restringido en lugar del contenido.
+        </p>
+      </section>
+
+      <section class="manual-section" id="inicio">
+        <h2>4. Inicio</h2>
+        <p>Es la pantalla que aparece al iniciar sesión. Su contenido cambia según el perfil:</p>
+
+        <h3>Para perfiles centrales (Administración General, Responsable, Compras, Autoridad máxima, Auditoría)</h3>
+        <ul>
+          <li><strong>Resumen de suministros:</strong> total de la planilla real, cuántos están en cada oficina del circuito, cuántos anulados y cuántos con cuota insuficiente.</li>
+          <li><strong>Cuota real (Fuente 110):</strong> cuota, ejecutado y disponible del Municipio, acumulados desde el 1er trimestre hasta el trimestre en curso — mismo criterio que la planilla oficial. El detalle por Secretaría, por trimestre y la Fuente 131 están en Presupuesto.</li>
+          <li><strong>Cuota insuficiente:</strong> suministros reales marcados con cuota insuficiente, con enlace al listado completo.</li>
+          <li><strong>Alertas de renovación:</strong> aparece solo si usted tiene algún suministro en seguimiento (ver sección 12) vencido o por vencer.</li>
+          <li><strong>Accesos:</strong> enlace directo a las demás secciones habilitadas para su perfil.</li>
+        </ul>
+
+        <h3>Para usuarios de Secretaría</h3>
+        <ul>
+          <li><strong>Mis suministros:</strong> cuántos cargó la Secretaría y en qué oficina está cada grupo, y cuántos tienen cuota insuficiente.</li>
+          <li><strong>Cuota real de su Secretaría:</strong> cuota acumulada al trimestre en curso, ejecutado y disponible o excedido, por cada Fuente de Financiamiento en la que el área tiene cuota.</li>
+          <li><strong>Listado de mis suministros</strong> con la oficina en la que se encuentra cada uno.</li>
+          <li><strong>Alertas de renovación</strong>, igual que los perfiles centrales.</li>
+        </ul>
+      </section>
+
+      <section class="manual-section" id="suministros">
+        <h2>5. Suministros</h2>
+        <p>
+          Muestra el listado de la planilla oficial de suministros (más de 1.250 registros reales).
+          Es de solo lectura salvo para los perfiles con permiso de validación (Dirección de Compras,
+          Autoridad máxima y Administración General), que además pueden aprobar, desaprobar y cambiar la
+          oficina de cada registro.
+        </p>
+        <div class="manual-note">
+          <strong>Qué ve cada perfil.</strong> Los perfiles centrales ven la planilla completa, de todas
+          las Secretarías. Un <strong>Usuario de Secretaría</strong> ve únicamente <strong>sus</strong>
+          suministros, con la oficina en la que se encuentra cada uno. El recorte se aplica en el origen
+          de los datos: ninguna búsqueda ni filtro puede mostrarle suministros de otra Secretaría.
+        </div>
+        <h3>Buscar y filtrar</h3>
+        <ul>
+          <li><strong>Buscar:</strong> por número de suministro o por texto de la descripción (Observaciones).</li>
+          <li><strong>Filtrar por Oficina:</strong> la etapa administrativa en la que está el suministro (Secretaría de Economía, Dirección de Compras, Subsecretaría de Planificación, o Anulado).</li>
+          <li><strong>Filtrar por Secretaría:</strong> incluye todas las del Municipio. No aparece para los usuarios de Secretaría, que solo ven la propia.</li>
+          <li><strong>Ordenar por:</strong> número de suministro, fecha de carga o Secretaría.</li>
+        </ul>
+        <p>La lista se muestra de a tandas (con un botón "Mostrar más" al final) para no cargar las 1.200 filas de una vez.</p>
+
+        <h3>Ver el detalle</h3>
+        <p>
+          Al hacer clic en una fila se abre, a la derecha, el detalle completo: identificación (número,
+          etiqueta, Secretaría, dependencia solicitante, oficina, estado de cuota), montos (solicitado,
+          adjudicado, total), el circuito administrativo completo (fecha de carga, solicitud de gastos,
+          pedido de cotización, adjudicación, orden de compra, derivación a Economía) y, si RAFAM ya
+          tiene una Orden de Compra real para ese número, la <strong>Hoja de ruta (RAFAM)</strong>: Fuente
+          de financiamiento, proveedor, concepto, N° de Orden(es) de Compra y si ya se registró la
+          Recepción (devengamiento). Si el suministro fue cargado desde Nuevo suministro, también se ve
+          si está <strong>Pendiente de aprobación</strong> o ya <strong>Aprobado</strong> (y por quién).
+        </p>
+
+        <h3>Gestión (Dirección de Compras, Autoridad máxima y Administración General)</h3>
+        <p>
+          Estos perfiles pueden <strong>cambiar la oficina</strong> de un suministro directamente desde la
+          columna <strong>Oficina</strong> del listado, sin abrir el detalle: se despliega un selector con
+          las 4 oficinas reales del circuito. Aprobar un suministro es enviarlo a la oficina que
+          corresponda; desaprobarlo es enviarlo a "Anulado".
+        </p>
+        <h3>Líneas nuevas cargadas desde Nuevo suministro</h3>
+        <p>
+          Si su Secretaría tiene el guardado automático habilitado, el sistema intenta escribirlas solo en
+          el Excel real y en la nube al momento de cargarlas. Si no pudo (o su Secretaría no lo tiene
+          habilitado), el botón <strong>Descargar datos manuales (CSV para pegar en el Excel)</strong>,
+          arriba del listado, baja un CSV con los campos manuales (Suministro, Oficina, Observaciones,
+          Meses de consumo, Mes de inicio, etc.) para pegarlos a mano en la primera fila vacía de la tabla
+          "suministros" del archivo real.
+        </p>
+        <div class="manual-note manual-warn">
+          No pegue ese CSV sobre las columnas Cuota, Secretaría, Fuente de Financiamiento, montos, meses
+          ni Total: son <strong>fórmulas</strong> de la tabla de Excel que se completan solas al vincular
+          el número de suministro en RAFAM. Escribir texto o blancos ahí rompe el autocompletado de la fila.
+        </div>
+      </section>
+
+      <section class="manual-section" id="nuevo">
+        <h2>6. Nuevo suministro</h2>
+        <p>
+          Disponible para los perfiles con permiso de carga (Administración General, Responsable de Área
+          y Usuario de Secretaría). Emite una <strong>autorización provisional</strong> imputada a la
+          Fuente y el monto <strong>reales</strong> del pedido — no se estima ni se inventa ningún dato.
+        </p>
+        <h3>Pasos para cargar una autorización</h3>
+        <ol>
+          <li>El <strong>Área responsable</strong> viene fijada según el usuario que inició sesión y no se puede modificar.</li>
+          <li>Antes del formulario se muestra la <strong>cuota de referencia</strong>: una tarjeta por Fuente de Financiamiento del área, con la economía acumulada al trimestre en curso.</li>
+          <li>Complete el <strong>N° de suministro</strong> — es el <strong>N° de Pedido de Suministro</strong> de la hoja de ruta de RAFAM, no el N° de Orden de Compra (son series distintas) —, el <strong>mes de inicio</strong> y los <strong>meses de consumo</strong> (número entero, sin decimales).</li>
+          <li>Presione <strong>Solicitar aprobación provisional</strong>.</li>
+        </ol>
+        <p>El resto de los datos (dependencia, partida, fechas del circuito) se completa después en RAFAM al vincular el número.</p>
+
+        <h3>Controles que interrumpen la carga</h3>
+        <p>Antes de crear nada, el sistema hace varios controles. Si alguno falla, aparece un
+          <strong>pop up de advertencia</strong> y no se arma ninguna línea:</p>
+        <ul>
+          <li><strong>Mes de inicio + meses de consumo no pueden terminar después de diciembre de 2026.</strong></li>
+          <li><strong>El suministro ya está cargado</strong> — en la planilla oficial o en esta misma sesión. El aviso muestra el registro en conflicto para identificarlo sin salir de la pantalla.</li>
+          <li><strong>El número no tiene Orden de Compra real en RAFAM.</strong> El N° de suministro tiene que corresponder a un Pedido de Suministro con al menos una Orden de Compra ya registrada; no se cargan suministros "en blanco".</li>
+          <li><strong>El pedido es de otra Secretaría.</strong> Se compara la Jurisdicción/Unidad Ejecutora real del pedido en RAFAM contra la Secretaría de la sesión iniciada; si no coinciden, se rechaza — no hay forma de forzarlo, a diferencia del control de cuota. Cuando un N° es tan nuevo que RAFAM todavía no permite resolver con certeza de qué Secretaría es, este control no se aplica.</li>
+          <li><strong>Sin economía en la Fuente real del pedido.</strong> Si la Fuente es una de las controladas (110 o 131) y esa Secretaría la tiene excedida acumulada al trimestre en curso, el aviso detalla cuota, ejecutado y excedido, y no se carga. Fuentes fuera de ese control (132, etc.) se dejan pasar avisando que no hay control de cuota para esa Fuente.</li>
+        </ul>
+
+        <h3>Qué pasa cuando la carga es válida</h3>
+        <p>
+          Se arma una línea nueva con las columnas del Excel de suministros, imputada a la Fuente real del
+          pedido, y entra por <strong>Secretaría de Economía</strong> (la primera oficina del circuito).
+          El sistema descarga automáticamente el <strong>remito de la solicitud de cuota en PDF</strong>.
+          La línea queda visible de inmediato en <strong>Suministros</strong>.
+        </p>
+        <div class="manual-note manual-warn">
+          <strong>Queda pendiente de aprobación.</strong> Todo suministro cargado desde acá necesita la
+          aprobación del legajo 310019 (ver sección 11) antes de darse por válido — esta regla no es
+          retroactiva, no afecta a los suministros que ya estaban en la planilla oficial.
+        </div>
+      </section>
+
+      <section class="manual-section" id="presupuesto">
+        <h2>7. Presupuesto</h2>
+        <p>
+          Disponible para los perfiles centrales. Es un informe real de cuota y ejecución por Secretaría,
+          tomado de la planilla que mantiene Economía/Hacienda, con el mismo desglose trimestral que usa
+          la planilla oficial.
+        </p>
+        <h3>Los dos selectores de arriba</h3>
+        <ul>
+          <li><strong>Fuente de financiamiento:</strong> 110 o 131.</li>
+          <li><strong>Período:</strong> acumulado a la fecha (opción por defecto), un trimestre puntual (1° a 4°) o el total anual.</li>
+        </ul>
+        <h3>Cómo leer la tabla</h3>
+        <ul>
+          <li><strong>Cuota:</strong> el techo presupuestario del período elegido.</li>
+          <li><strong>Ejecución:</strong> lo efectivamente gastado/comprometido en ese período.</li>
+          <li><strong>Exceso / economía:</strong> Cuota menos Ejecución del período.
+            <ul>
+              <li>Si es <strong>negativo</strong> (en rojo), la Secretaría ejecutó por encima de su cuota de ese período — está <em>pasada de cuota</em>.</li>
+              <li>Si es <strong>positivo</strong>, le queda cuota disponible — tiene <em>economía</em> o cuota sobrante.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>La tabla se ordena automáticamente de mayor exceso a mayor economía, para ver primero los casos más urgentes.</p>
+      </section>
+
+      <section class="manual-section" id="difusion">
+        <h2>8. Difusión</h2>
+        <p>
+          A diferencia de Presupuesto, esta sección sí está disponible para las cuentas de Secretaría —
+          es justamente el reporte pensado para comunicarle a cada área cuánto tiene disponible. Una
+          cuenta de Secretaría ve directamente la suya; los perfiles centrales eligen cuál ver con el
+          selector de arriba.
+        </p>
+        <p>Muestra, por Fuente (110 y 131) y por trimestre (I a IV):</p>
+        <ul>
+          <li><strong>Cuota liberada inicial:</strong> el techo presupuestario asignado a ese trimestre.</li>
+          <li><strong>Suministros en ejecución:</strong> lo comprometido en ese trimestre (no incluye lo recepcionado y luego anulado, ni lo "pausado").</li>
+          <li><strong>Resultados trimestres anteriores:</strong> si el trimestre anterior cerró en rojo, ese déficit se descuenta acá. Si cerró con economía, esa economía <em>no</em> se arrastra — cada trimestre es un cupo nuevo.</li>
+          <li><strong>Cuota liberada restante:</strong> lo que efectivamente queda disponible ese trimestre, ya con el arrastre aplicado.</li>
+        </ul>
+      </section>
+
+      <section class="manual-section" id="devengamiento">
+        <h2>9. Devengamiento</h2>
+        <p>
+          Igual que Difusión, disponible para todos los perfiles — una cuenta de Secretaría ve solo sus
+          suministros, los perfiles centrales ven todos. El devengamiento es cuándo RAFAM registra la
+          <strong>Recepción</strong> real del bien o servicio — no es la Orden de Compra (eso es cuándo se
+          autorizó comprar) ni el pago (eso todavía no está disponible en el sistema).
+        </p>
+        <h3>Curva de devengamiento</h3>
+        <p>
+          Un gráfico por mes de 2026, con dos tramos por barra: <strong>Real</strong> (sólido) es lo que
+          RAFAM ya registró; <strong>Proyectado</strong> (rayado) es una estimación de lo que falta, para
+          los suministros que todavía no tienen Recepción. La estimación usa la mediana real de días entre
+          Orden de Compra y Recepción de suministros similares — afinada por tipo de proceso (compra
+          directa, concurso de precios, licitación) cuando ya se conoce.
+        </p>
+        <h3>Por suministro</h3>
+        <p>El mismo dato desglosado uno por uno, con buscador y filtro por estado (Ya devengado / Proyectado / Sin datos). "Sin datos" son los suministros Anulados, o los que ni siquiera tienen Fecha de Carga cargada.</p>
+      </section>
+
+      <section class="manual-section" id="analitica">
+        <h2>10. Analítica</h2>
+        <p>Visible únicamente para el legajo 310019. Reúne gráficos sobre la planilla real, la cuota y el devengamiento (cuándo se recibió realmente lo comprado, no cuándo se pagó).</p>
+        <h3>Dos modos</h3>
+        <ul>
+          <li><strong>Visión general:</strong> el panorama completo del Municipio — suministros por mes, por oficina, top Secretarías por cantidad y por monto, devengamiento, concentración de proveedores, días de trámite.</li>
+          <li><strong>Por Secretaría:</strong> aparece un selector de Secretaría y el mismo tipo de gráficos, acotados a la elegida.</li>
+        </ul>
+      </section>
+
+      <section class="manual-section" id="aprobaciones">
+        <h2>11. Aprobaciones</h2>
+        <p>Visible únicamente para el legajo 310019. Es donde se revisan los suministros cargados desde <strong>Nuevo suministro</strong> que todavía no fueron aprobados (ver sección 6).</p>
+        <ul>
+          <li>El listado muestra cada suministro pendiente con su Secretaría, concepto, Fuente y monto.</li>
+          <li>El botón <strong>Aprobar</strong> lo marca como aprobado, con la fecha y el legajo que aprobó — queda registrado en el detalle del suministro (sección 5).</li>
+        </ul>
+        <div class="manual-note">
+          Esta validación <strong>no es retroactiva</strong>: los suministros de la planilla oficial cargados antes de esta funcionalidad no pasan por acá.
+        </div>
+      </section>
+
+      <section class="manual-section" id="alertas">
+        <h2>12. Alertas de renovación</h2>
+        <p>Disponible para los seis perfiles, en un sitio aparte: el botón <strong>Alertas</strong> del menú lo abre con la sesión ya iniciada (también se puede entrar directo con el mismo legajo y contraseña). Cada legajo elige, a mano, qué suministros seguir para que el sistema avise cuándo se acerca el fin de su cobertura (Mes de inicio + Meses de consumo). No hace falta seguir todos — solo un suministro que tenga esos dos datos cargados se puede agregar.</p>
+        <h3>Agregar al seguimiento</h3>
+        <p>Hay un formulario arriba del <strong>Calendario</strong> y otro arriba de <strong>En seguimiento</strong> — cualquiera de los dos sirve, los dos comparten el mismo seguimiento:</p>
+        <ol>
+          <li>Toque <strong>Elegir suministros</strong> para abrir el selector: se puede buscar por número u observaciones y tildar uno o varios.</li>
+          <li>Complete con cuántos días de anticipación quiere el aviso (30 por defecto) y, opcionalmente, una etiqueta propia para agrupar suministros (por ejemplo "Insumos de limpieza").</li>
+          <li>Presione <strong>Agregar al seguimiento</strong>.</li>
+        </ol>
+        <h3>Calendario y listado</h3>
+        <p>El <strong>Calendario</strong> muestra, para cada suministro seguido, qué meses de 2026 cubre. La sección <strong>En seguimiento</strong> lista cada uno con su estado (Vigente, Por vencer, Vencido o Completado), el día exacto en que se activa el aviso, y permite editar la etiqueta o los días de aviso en el momento.</p>
+        <p>El botón <strong>Marcar como completado</strong> se usa cuando ya tramitó la renovación: no saca el suministro del seguimiento, lo manda al final de la lista y lo suma al contador "Completados". Se puede deshacer con "Marcar como pendiente". El botón <strong>Quitar</strong> lo saca del seguimiento por completo.</p>
+        <p>Si hay más de una etiqueta en uso, aparece un filtro arriba del listado para ver solo una o todas.</p>
+        <div class="manual-note">
+          El seguimiento se guarda en el sistema, por legajo: se ve igual desde cualquier PC y no se pierde al cerrar el navegador. Cada legajo ve solo su propio seguimiento.
+        </div>
+      </section>
+
+      <section class="manual-section" id="remitos">
+        <h2>13. Mis remitos</h2>
+        <p>Disponible para los seis perfiles. Muestra los suministros propios ya aprobados (sección 11) — para una cuenta de Secretaría, los de su propia área — separados en dos pestañas:</p>
+        <ul>
+          <li><strong>Con cuota:</strong> se cargaron con cuota disponible; el remito ya se había descargado al momento de cargarlos y acá se puede volver a bajar.</li>
+          <li><strong>Excepcionales (sin cuota):</strong> se cargaron con la Fuente ya excedida, pidiendo una aprobación excepcional (sección 6) — no tuvieron remito hasta que se aprobaron, así que esta es la primera vez que se puede descargar.</li>
+        </ul>
+        <p>El botón <strong>Descargar remito</strong> de cada tarjeta genera el PDF en el momento.</p>
+        <div class="manual-note">
+          Al entrar a esta sección se marcan como vistos todos los aprobados: el número que aparece junto a <strong>Mis remitos</strong> en el menú avisa cuántos todavía no vio, y desaparece al visitar la sección. Ese conteo se guarda en este navegador, por legajo.
+        </div>
+      </section>
+
+      <section class="manual-section" id="sesion">
+        <h2>14. Cerrar sesión</h2>
+        <p>
+          El botón <strong>Cerrar sesión</strong> está siempre visible arriba a la derecha, junto al
+          nombre de su área y su legajo. Al presionarlo, se vuelve a la pantalla de inicio de sesión.
+        </p>
+      </section>
+
+      <section class="manual-section" id="faq">
+        <h2>15. Preguntas frecuentes</h2>
+
+        <h3>¿Por qué no veo la opción "Presupuesto", "Analítica" o "Aprobaciones" en el menú?</h3>
+        <p>Porque su perfil no tiene acceso a esa sección. Revise la tabla de la sección 3 — Analítica y Aprobaciones son exclusivas del legajo 310019.</p>
+
+        <h3>¿Lo que cargo en "Nuevo suministro" queda guardado para siempre?</h3>
+        <p>
+          Queda visible de inmediato en este sistema, pero todavía necesita reflejarse en el Excel/RAFAM
+          real (sección 5) y ser aprobado por el legajo 310019 (sección 11) para darse por definitivo. Si
+          cierra el navegador antes de que eso pase, la carga puede perderse — descargue siempre el remito
+          y, si corresponde, el CSV para pegar en el Excel.
+        </p>
+
+        <h3>¿Por qué mi Secretaría no aparece en "Cuota real de tu Secretaría"?</h3>
+        <p>
+          Puede deberse a que la planilla oficial todavía no tiene cargada la cuota de esa Secretaría
+          para el período vigente. Consulte con la Subsecretaría de Planificación Presupuestaria.
+        </p>
+
+        <h3>¿El seguimiento de Alertas se pierde si cierro el navegador?</h3>
+        <p>No: queda guardado en el sistema, por legajo. Se ve igual desde cualquier PC y aunque se borren los datos del navegador.</p>
+
+        <h3>Me equivoqué de legajo o clave al ingresar, ¿qué hago?</h3>
+        <p>Vuelva a intentarlo. El sistema indica "Legajo o clave incorrectos" cuando alguno de los dos no coincide.</p>
+
+        <a class="manual-back-top" href="#intro">↑ Volver al inicio del manual</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="municipal-footer">
+    <div>
+      <img src="/brand/moron-logo.png" alt="Municipio de Morón" width="60" height="72" loading="lazy" />
+      <p>
+        Subsecretaría de Planificación Presupuestaria y Estadística<br />
+        <span><a href="mailto:dir.presupuesto@moron.gob.ar">dir.presupuesto@moron.gob.ar</a> · Interno 7714</span>
+      </p>
+      <nav class="footer-links" aria-label="Enlaces del pie">
+        <a href="https://www.moron.gob.ar/" target="_blank" rel="noreferrer">Sitio del Municipio <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

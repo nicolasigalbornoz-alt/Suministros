@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presupuesto - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pagePresupuesto">
+        <div class="panel-header">
+          <div>
+            <h2>Presupuesto y ejecución</h2>
+            <p class="subtitle" id="presupuestoSubtitle">Cuota, ejecución y exceso/economía anual por Secretaría, según la planilla oficial.</p>
+          </div>
+          <div class="panel-header-filters">
+            <div class="field">
+              <label for="presupuestoFuente">Fuente de financiamiento</label>
+              <select id="presupuestoFuente" class="filter-select"></select>
+            </div>
+            <div class="field">
+              <label for="presupuestoTrimestre">Período</label>
+              <select id="presupuestoTrimestre" class="filter-select"></select>
+            </div>
+          </div>
+        </div>
+
+        <div id="presupuestoRestrictedNote" class="info-card" hidden>
+          <h3>Acceso restringido</h3>
+          <p>El informe de presupuesto está disponible solo para los usuarios centrales (Economía, Administración, Compras). Su perfil puede cargar suministros desde <a href="nuevo-suministro.html">Nuevo suministro</a> y consultar su cuota en <a href="dashboard.html">Inicio</a>.</p>
+        </div>
+
+        <div id="presupuestoContent">
+          <div class="stats-row stats-row-4" id="presupuestoStats"></div>
+
+          <div class="dashboard-section">
+            <div class="section-header-row">
+              <h3>Cuota y ejecución por Secretaría</h3>
+              <span class="field-hint">Ordenado de mayor exceso a mayor economía</span>
+            </div>
+            <p class="detail-text" id="presupuestoNotaExceso">Exceso/economía = Cuota − Ejecución. Negativo (en rojo) indica que la Secretaría ejecutó por encima de su cuota asignada.</p>
+            <div class="supplies-table">
+              <div class="table-header table-header-presupuesto" id="presupuestoTablaHeader">
+                <div>Secretaría</div>
+                <div>Cuota</div>
+                <div>Ejecución</div>
+                <div>Exceso / economía</div>
+              </div>
+              <div id="presupuestoList" class="table-body presupuesto-table-body"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="cuota-110-data.js?v=20260828n" defer></script>
+  <script src="cuota-131-data.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

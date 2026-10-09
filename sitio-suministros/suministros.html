@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suministros - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageSuministros">
+        <div class="panel-header">
+          <div>
+            <h2>Suministros solicitados</h2>
+            <p class="subtitle" id="suministrosSubtitle">Seguimiento de suministros cargado desde planilla oficial. Datos de solo lectura.</p>
+          </div>
+        </div>
+
+        <!-- Cuota específica del área: solo se completa para cuentas de Secretaría -->
+        <div id="suministrosCuotaArea" class="dashboard-section" hidden></div>
+
+        <div id="suministrosContent" class="dashboard-grid">
+          <div class="dashboard-section">
+            <div class="section-header-row">
+              <h3>Listado</h3>
+              <span id="suministrosSourceNote" class="field-hint"></span>
+            </div>
+            <!-- Líneas nuevas cargadas en la sesión, para llevar al Excel oficial -->
+            <div id="altasExport" class="toolbar-actions" hidden></div>
+            <!-- Confirmación al cambiar la oficina desde el selector de la columna "Oficina" -->
+            <p id="oficinaUpdateMessage" class="field-hint" aria-live="polite" hidden></p>
+            <div class="table-toolbar">
+              <input type="search" id="searchSupply" class="search-input" placeholder="Buscar por N° o descripción..." aria-label="Buscar suministro" />
+              <select id="filterOficina" class="filter-select" aria-label="Filtrar por oficina">
+                <option value="">Todas las oficinas</option>
+              </select>
+              <select id="filterSecretaria" class="filter-select" aria-label="Filtrar por secretaría">
+                <option value="">Todas las secretarías</option>
+              </select>
+              <select id="ordenamiento" class="filter-select" aria-label="Ordenar por">
+                <option value="suministro">Ordenar: N° suministro</option>
+                <option value="fecha">Ordenar: fecha de carga</option>
+                <option value="secretaria">Ordenar: secretaría</option>
+              </select>
+            </div>
+            <div class="supplies-table">
+              <div class="table-header">
+                <div>N°</div>
+                <div>Observaciones</div>
+                <div>Oficina</div>
+                <div>Secretaría</div>
+                <div>Meses</div>
+                <div>Inicio</div>
+                <div>Monto</div>
+              </div>
+              <div id="suppliesList" class="table-body"></div>
+              <div class="table-footer">
+                <strong>Mostrando <span id="visibleSupplies">0</span> de <span id="totalSupplies">0</span> suministros</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-section detail-section">
+            <h3>Detalle del suministro</h3>
+            <div id="supplyDetail" class="supply-detail">
+              <div class="empty-state">Seleccione un suministro del listado para ver su detalle.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <!-- Cuota por Secretaría: se usa para mostrarle a cada área su cuota específica -->
+  <script src="cuota-110-data.js?v=20260828n" defer></script>
+  <script src="cuota-131-data.js?v=20260828n" defer></script>
+  <!-- Hoja de ruta real de RAFAM: Fuente/Monto/Proveedor por N° de Suministro -->
+  <script src="pedidos-suministro-data.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

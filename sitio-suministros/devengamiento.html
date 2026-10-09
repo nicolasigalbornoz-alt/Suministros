@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devengamiento - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageDevengamiento">
+        <div class="panel-header">
+          <div>
+            <h2>Devengamiento</h2>
+            <p class="subtitle" id="devengamientoSubtitle">Cuándo se recibió (o se estima que se va a recibir) cada suministro — no cuándo se pagó.</p>
+          </div>
+        </div>
+
+        <div class="stats-row stats-row-4" id="devengamientoStats"></div>
+
+        <div class="dashboard-section">
+          <div class="section-header-row">
+            <h3>Curva de devengamiento</h3>
+            <span class="field-hint">Por mes de 2026 — real hasta hoy, proyectado para lo que falta</span>
+          </div>
+          <p class="detail-text">El tramo rayado es una estimación (mediana de días real entre Orden de Compra y Recepción, por tipo de proceso cuando ya se conoce) — no es un dato de RAFAM todavía.</p>
+          <div id="devengamientoCurva" class="chart-wrap"></div>
+        </div>
+
+        <div class="dashboard-section">
+          <div class="section-header-row">
+            <h3>Por suministro</h3>
+            <span class="field-hint">Ordenado por fecha de devengamiento (real o estimada)</span>
+          </div>
+          <div class="table-toolbar">
+            <input type="search" id="devengamientoSearch" class="search-input" placeholder="Buscar por N° o descripción..." aria-label="Buscar suministro" />
+            <select id="devengamientoFiltroEstado" class="filter-select" aria-label="Filtrar por estado">
+              <option value="">Todos los estados</option>
+              <option value="real">Ya devengado</option>
+              <option value="proyectado">Proyectado</option>
+              <option value="sin_datos">Sin datos para proyectar</option>
+            </select>
+          </div>
+          <div class="supplies-table">
+            <div class="table-header table-header-devengamiento">
+              <div>N°</div>
+              <div>Observaciones</div>
+              <div>Secretaría</div>
+              <div>Estado</div>
+              <div>Monto</div>
+              <div>Devengamiento</div>
+            </div>
+            <div id="devengamientoList" class="table-body"></div>
+            <div class="table-footer">
+              <strong>Mostrando <span id="devengamientoVisibles">0</span> de <span id="devengamientoTotal">0</span> suministros</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="pedidos-suministro-data.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

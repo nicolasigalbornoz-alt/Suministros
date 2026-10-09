@@ -1,0 +1,2548 @@
+/* ==================== TOKENS Y RESET ====================
+   Se carga DESPUÉS de global.css (estética institucional de sde_v2, igual
+   que el sitio de Alertas y formulario-17): fuentes Neo Sans, tokens
+   --moron-*, encabezado y pie municipales. Acá se apuntan las variables de
+   siempre a esa paleta, y la "CAPA MUNICIPAL" del final adapta los
+   componentes propios del sitio. */
+:root {
+  --primary-red: var(--moron-red-dark);
+  --dark-red: #b9131c;
+  --light-red: var(--moron-red);
+  --red-tint: #fff6f6;
+  --white: #ffffff;
+  --light-gray: var(--moron-surface);
+  --panel: #ffffff;
+  --gray: #686868;
+  --dark-gray: #303030;
+  --text: var(--moron-charcoal);
+  --hairline: var(--moron-border);
+  --card-shadow: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* El atributo [hidden] nativo del HTML solo pisa un display:block por
+   defecto -- si un elemento tiene display:flex/grid seteado por su
+   propia clase (ej. .analitica-selector, .table-toolbar), esa regla del
+   autor le gana al [hidden] del navegador aunque tengan la misma
+   especificidad (el origen del CSS importa antes que el orden), y el
+   elemento se sigue viendo aunque JS le haya puesto el atributo hidden.
+   Se detectó justo en el selector de Secretaría de Analítica: quedaba
+   visible en "Visión general" a pesar de wrapper.hidden = true. Esta
+   regla de más arriba en la cascada garantiza que hidden siempre gane,
+   sin tener que acordarse de pisarlo elemento por elemento. */
+[hidden] {
+  display: none !important;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  background-color: var(--light-gray);
+  color: var(--text);
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+/* ==================== MARCO: LAYOUT Y SIDEBAR (encabezado y pie: global.css) ==================== */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* #appSidebar ya no lo usa Layout (ver script.js) -- se deja el elemento
+   en el HTML por compatibilidad, pero no ocupa lugar ni se ve. */
+.sidebar {
+  display: none;
+}
+
+/* ==================== CONTENIDO PRINCIPAL Y LOGIN ==================== */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  background-color: var(--light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 700px;
+}
+
+.login-card {
+  background: var(--white);
+  border: 1px solid var(--primary-red);
+  border-radius: 5px;
+  padding: 50px;
+  box-shadow: var(--card-shadow);
+}
+
+.login-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--dark-gray);
+}
+
+.login-card .subtitle {
+  font-size: 15px;
+  color: var(--gray);
+  margin-bottom: 30px;
+}
+
+.login-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin-bottom: 25px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group,
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label,
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field input,
+.field select,
+.form-group input {
+  padding: 10px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--hairline);
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  font-size: 13px;
+}
+
+.field input:focus,
+.field select:focus,
+.form-group input:focus {
+  border-color: var(--primary-red);
+  outline: 2px solid var(--primary-red);
+  outline-offset: 1px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ==================== BOTONES ==================== */
+.btn-login,
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-login {
+  background-color: var(--white);
+  border: 2px solid var(--primary-red);
+  color: var(--primary-red);
+  margin-top: 15px;
+}
+
+.btn-login:hover {
+  background-color: var(--primary-red);
+  color: var(--white);
+}
+
+.btn.primary {
+  background-color: var(--primary-red);
+  color: var(--white);
+}
+
+.btn.primary:hover {
+  background-color: var(--dark-red);
+}
+
+.btn.ghost {
+  background: var(--white);
+  color: var(--primary-red);
+  border: 1px solid var(--primary-red);
+}
+
+.btn.ghost:hover {
+  background-color: rgba(206, 21, 32, 0.05);
+}
+
+.supplies-mostrar-mas {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn.warn {
+  background: var(--white);
+  color: var(--dark-gray);
+  border: 1px solid var(--dark-gray);
+}
+
+.btn.warn:hover {
+  background-color: rgba(51, 51, 51, 0.06);
+}
+
+.btn:disabled,
+.btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.field input:disabled {
+  background: #f0f0f0;
+  color: var(--dark-gray);
+  cursor: not-allowed;
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.login-links a {
+  color: var(--primary-red);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.login-links a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.demo-users {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.demo-users summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+.demo-users ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  line-height: 1.7;
+}
+
+.demo-users p {
+  margin: 10px 0 0;
+}
+
+.subtitle {
+  color: var(--gray);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.message {
+  margin-top: 15px;
+  font-weight: 600;
+  min-height: 20px;
+}
+
+.message.success {
+  color: var(--dark-gray);
+}
+
+.message.error {
+  color: var(--primary-red);
+}
+
+.message a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ==================== DASHBOARD ==================== */
+.dashboard {
+  max-width: 100%;
+}
+
+.dashboard-content {
+  flex: 1;
+  width: 100%;
+  padding: 40px;
+  background-color: var(--light-gray);
+  display: block;
+}
+
+/* Separación entre los bloques de cada página: párrafos sueltos, la fila
+   de stats, el grid de dos columnas, cada .dashboard-section, etc. Antes
+   cada uno definía su propio margin-top suelto (o ninguno, y quedaban
+   pegados unos con otros) — una sola regla genérica por todos los hijos
+   directos de .panel evita que se vuelva a romper al agregar un bloque
+   nuevo. */
+.panel > * + * {
+  margin-top: 28px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.dashboard-section {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+}
+
+.dashboard-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+/* ---------- Tabla de suministros ---------- */
+.supplies-table {
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 0.5fr 2.2fr 0.9fr 1.1fr 0.5fr 0.6fr 0.9fr;
+  background-color: #f5f5f5;
+  padding: 12px 15px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+  gap: 12px;
+}
+
+.table-body {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.supply-row {
+  display: grid;
+  grid-template-columns: 0.5fr 2.2fr 0.9fr 1.1fr 0.5fr 0.6fr 0.9fr;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.supply-obs {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--dark-gray);
+}
+
+/* ---------- Devengamiento por suministro ---------- */
+.table-header-devengamiento,
+.devengamiento-row {
+  grid-template-columns: 0.5fr 2fr 1.1fr 1fr 1fr 1fr;
+}
+
+.devengamiento-estado {
+  font-size: 12px;
+}
+
+.devengamiento-monto {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.devengamiento-fecha {
+  color: var(--gray);
+  white-space: nowrap;
+}
+
+.devengamiento-fecha-real {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+
+/* ---------- Informe de presupuesto por Secretaría ---------- */
+.table-header-presupuesto,
+.presupuesto-row {
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.presupuesto-table-body {
+  max-height: 640px;
+}
+
+.presupuesto-monto {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.presupuesto-exceso-negativo {
+  color: var(--primary-red);
+  font-weight: 700;
+}
+
+.presupuesto-exceso-positivo {
+  color: var(--dark-gray);
+  font-weight: 700;
+}
+
+/* ---------- Difusión: cuota liberada por trimestre ---------- */
+.table-scroll {
+  overflow-x: auto;
+}
+
+.difusion-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+  font-size: 13px;
+}
+
+.difusion-table th,
+.difusion-table td {
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--hairline);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.difusion-table th:first-child,
+.difusion-table td:first-child {
+  text-align: left;
+  font-variant-numeric: normal;
+  white-space: normal;
+}
+
+.difusion-table thead th {
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.difusion-table tr.difusion-total td {
+  font-weight: 700;
+  color: var(--dark-gray);
+  border-top: 2px solid var(--dark-gray);
+  border-bottom: none;
+}
+
+.supply-row.selected {
+  background: var(--red-tint);
+  border-left: 3px solid var(--primary-red);
+}
+
+.supply-row:last-child {
+  border-bottom: none;
+}
+
+.supply-row:hover {
+  background-color: #fafafa;
+}
+
+.supply-id {
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.supply-area,
+.supply-periodo {
+  color: var(--dark-gray);
+}
+
+.supply-monto {
+  text-align: right;
+  font-weight: 700;
+}
+
+.supply-estado {
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-approved {
+  background-color: #eee;
+  color: var(--dark-gray);
+}
+
+.status-pending {
+  background-color: #eee;
+  color: var(--dark-gray);
+}
+
+.status-rejected {
+  background-color: rgba(206, 21, 32, 0.08);
+  color: var(--primary-red);
+}
+
+/* ---------- Devengamiento: proyectado ---------- */
+.status-badge-proyectado {
+  background-color: transparent;
+  border: 1px dashed var(--gray);
+  color: var(--gray);
+  padding: 3px 11px;
+}
+
+.status-badge-sin-datos {
+  background-color: transparent;
+  border: 1px solid var(--hairline);
+  color: var(--gray);
+  padding: 3px 11px;
+}
+
+.table-footer {
+  background-color: #f5f5f5;
+  padding: 12px 15px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: right;
+  border-top: 2px solid #ddd;
+}
+
+/* ---------- Cuota y disponibilidad ---------- */
+.quota-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.quota-card {
+  background: var(--white);
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 18px;
+  text-align: center;
+}
+
+.quota-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.quota-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+/* ---------- Cuota real por fuente de financiamiento (Inicio) ---------- */
+.quota-fuente-group + .quota-fuente-group {
+  margin-top: 18px;
+}
+
+.quota-fuente-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.quota-fuente-anual {
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 6px;
+}
+
+/* ---------- Detalle del proceso ---------- */
+.supply-detail {
+  background: #fafafa;
+  padding: 18px;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.detail-text {
+  margin-top: 12px;
+  color: var(--gray);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.detail-text a {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+.detail-subheading {
+  margin: 18px 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--gray);
+  border-top: 1px solid #ececec;
+  padding-top: 12px;
+}
+
+/* Selector de oficina en la columna "Oficina" del listado (Dirección de
+   Compras y perfiles equivalentes): mismo look que .status-badge, pero
+   clickeable y con flecha propia, ya que reemplaza al span de solo lectura. */
+.oficina-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  max-width: 100%;
+  padding: 4px 26px 4px 12px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 9px 6px;
+}
+
+.oficina-select:hover {
+  border-color: var(--gray);
+}
+
+.oficina-select:focus-visible {
+  outline: 2px solid var(--primary-red);
+  outline-offset: 1px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ---------- Calendarización y curva de devengamiento ---------- */
+.calendarization-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+.devengamiento-chart {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  min-height: 240px;
+}
+
+.bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.bar {
+  width: 100%;
+  max-width: 36px;
+  border-radius: 2px 2px 0 0;
+  background: var(--primary-red);
+  transition: height 0.3s ease;
+}
+
+.bar-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--dark-gray);
+  min-height: 14px;
+}
+
+.bar-label {
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.panel-header h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--dark-gray);
+  margin: 0;
+}
+
+.panel-header-filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.info-card {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-left: 3px solid var(--gray);
+  border-radius: 3px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.info-card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.info-card p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 13px;
+}
+
+.info-card a {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+/* ---------- Accesos rápidos (Inicio) ---------- */
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.quick-link-card {
+  display: block;
+  background: var(--white);
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.quick-link-card:hover {
+  background-color: #fafafa;
+  border-color: var(--primary-red);
+}
+
+.quick-link-card h4 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.quick-link-card p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.info-collapsible summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.info-collapsible summary::-webkit-details-marker {
+  display: none;
+}
+
+.info-collapsible summary h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.info-collapsible summary h3::before {
+  content: '▸';
+  font-size: 11px;
+  transition: transform 0.15s ease;
+}
+
+.info-collapsible[open] summary h3::before {
+  transform: rotate(90deg);
+}
+
+.info-collapsible p {
+  margin-top: 8px;
+}
+
+/* ---------- Resumen rápido (stats) — grilla continua con líneas finas,
+   igual criterio que los KPI del Tablero de seguimiento: no son tarjetas
+   sueltas, es una sola grilla con el borde como separador entre celdas. */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+.stats-row-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-card .stat-value {
+  overflow-wrap: break-word;
+}
+
+.stat-card {
+  background: var(--white);
+  padding: 16px 18px;
+  position: relative;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--dark-gray);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+
+.stat-alert .stat-label,
+.stat-rejected .stat-label {
+  color: var(--primary-red);
+}
+
+/* ---------- Barra de progreso de cuota ---------- */
+.quota-progress {
+  margin-top: 16px;
+}
+
+.quota-progress-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 2px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.quota-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--dark-gray);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.quota-progress-fill.quota-progress-warn {
+  background: var(--primary-red);
+}
+
+.quota-progress-label {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--gray);
+}
+
+/* ---------- Toolbar de la tabla (buscador y filtro) ---------- */
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--hairline);
+  font-size: 13px;
+  outline: none;
+  color: var(--text);
+}
+
+.search-input:focus,
+.filter-select:focus {
+  border-color: var(--primary-red);
+  outline: 2px solid var(--primary-red);
+  outline-offset: 1px;
+}
+
+.filter-select {
+  padding: 9px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--hairline);
+  font-size: 13px;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+}
+
+.empty-state {
+  padding: 30px 15px;
+  text-align: center;
+  color: var(--gray);
+  font-size: 13px;
+}
+
+/* ---------- Fila de suministro accesible por teclado ---------- */
+.supply-row:focus-visible {
+  outline: 2px solid var(--primary-red);
+  outline-offset: -2px;
+}
+
+/* ---------- Hint de campo (formulario) ---------- */
+.field-hint {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.field-hint-error {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+.field-hint-success {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+
+/* ---------- Login: mostrar/ocultar clave y "recordar usuario" ---------- */
+.password-field {
+  position: relative;
+  display: flex;
+}
+
+.password-field input {
+  flex: 1;
+  padding-right: 55px;
+}
+
+.toggle-clave {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--primary-red);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.toggle-clave:hover {
+  text-decoration: underline;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.checkbox-group input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--primary-red);
+  cursor: pointer;
+}
+
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- Resumen: quinto stat (alertas) ---------- */
+.stat-alert .stat-value,
+.stat-rejected .stat-value {
+  color: var(--primary-red);
+}
+
+/* ---------- Imputación presupuestaria ---------- */
+.imputacion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.imputacion-item {
+  background: #fafafa;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  padding: 12px 14px;
+}
+
+.imputacion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.imputacion-codigo {
+  font-weight: 700;
+  color: var(--dark-gray);
+  font-size: 13px;
+}
+
+.imputacion-nombre {
+  font-size: 13px;
+  color: var(--dark-gray);
+}
+
+.imputacion-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 2px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.imputacion-fill {
+  height: 100%;
+  background: var(--dark-gray);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.imputacion-fill-warn {
+  background: var(--primary-red);
+}
+
+.imputacion-figures {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--gray);
+  flex-wrap: wrap;
+}
+
+.imputacion-negative {
+  color: var(--primary-red);
+  font-weight: 700;
+}
+
+/* ---------- Alertas de consumo ---------- */
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.alert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-radius: 3px;
+  padding: 10px 12px;
+  font-size: 13px;
+  border: 1px solid #ececec;
+  background: #fafafa;
+}
+
+.alert-item strong {
+  display: block;
+  color: var(--dark-gray);
+}
+
+.alert-item span {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+.alert-item.alert-warning {
+  background: #f5f5f5;
+  border-color: #ddd;
+}
+
+.alert-item.alert-overdue {
+  background: rgba(206, 21, 32, 0.06);
+  border-color: rgba(206, 21, 32, 0.25);
+}
+
+.alert-pill {
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.alert-pill-warning {
+  background: #eee;
+  color: var(--dark-gray);
+}
+
+.alert-pill-overdue {
+  background: rgba(206, 21, 32, 0.12);
+  color: var(--primary-red);
+}
+
+.alert-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.alert-dot-warning {
+  background: var(--gray);
+}
+
+.alert-dot-overdue {
+  background: var(--primary-red);
+}
+
+/* ---------- Configuración de alerta (detalle del proceso) ---------- */
+.alerta-config {
+  margin-top: 16px;
+}
+
+.alerta-config-view,
+.alerta-config-edit {
+  background: #fafafa;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  padding: 12px 14px;
+  font-size: 13px;
+}
+
+.alerta-config-view.alert-warning,
+.alerta-config-edit.alert-warning {
+  background: #f5f5f5;
+  border-color: #ddd;
+}
+
+.alerta-config-view.alert-overdue,
+.alerta-config-edit.alert-overdue {
+  background: rgba(206, 21, 32, 0.06);
+  border-color: rgba(206, 21, 32, 0.25);
+}
+
+.alerta-config-edit label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.alerta-config-row {
+  display: flex;
+  gap: 10px;
+}
+
+.alerta-config-row input {
+  width: 90px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.alerta-config-row input:focus {
+  border-color: var(--primary-red);
+  outline: 2px solid var(--primary-red);
+  outline-offset: 1px;
+}
+
+/* ==================== MODAL (POP UP DE ADVERTENCIA) ==================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(20, 8, 8, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2000;
+}
+
+.modal-card {
+  background-color: var(--white);
+  border-radius: 5px;
+  border-top: 5px solid var(--primary-red);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 26px 28px 22px;
+}
+
+.modal-card.modal-danger {
+  border-top-color: var(--primary-red);
+}
+
+.modal-card.modal-warning {
+  border-top-color: var(--dark-gray);
+}
+
+.modal-card.modal-success {
+  border-top-color: var(--dark-gray);
+}
+
+.modal-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.modal-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--white);
+  background-color: var(--primary-red);
+}
+
+.modal-warning .modal-icon {
+  background-color: var(--dark-gray);
+}
+
+.modal-success .modal-icon {
+  background-color: var(--dark-gray);
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.modal-message {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.modal-detail {
+  background-color: var(--light-gray);
+  border-radius: 3px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.modal-detail div {
+  color: var(--dark-gray);
+}
+
+.modal-detail strong {
+  color: var(--text);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ==================== EVALUACIÓN DE RUTAS (FUENTES) ==================== */
+.rutas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ruta-card {
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid var(--gray);
+  border-radius: 3px;
+  padding: 12px 14px;
+  background-color: var(--white);
+}
+
+.ruta-card.ruta-ok {
+  border-left-color: var(--dark-gray);
+}
+
+.ruta-card.ruta-sin {
+  border-left-color: var(--primary-red);
+}
+
+.ruta-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray);
+  margin-bottom: 6px;
+}
+
+.ruta-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 4px;
+}
+
+.ruta-card.ruta-sin .ruta-value {
+  color: var(--primary-red);
+}
+
+.ruta-state {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+/* ==================== MIS SUMINISTROS (VISTA DE ÁREA) ==================== */
+.mini-supply-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.mini-supply-row {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  background-color: var(--white);
+  font-size: 13px;
+}
+
+.mini-supply-row strong {
+  color: var(--primary-red);
+}
+
+.mini-supply-obs {
+  color: var(--dark-gray);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1200px) {
+  .dashboard-grid,
+  .form-grid,
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quick-links-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-toolbar {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .main-content,
+  .dashboard-content {
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 30px;
+  }
+
+  .table-header,
+  .supply-row {
+    font-size: 12px;
+  }
+
+  .dashboard-section {
+    padding: 15px;
+  }
+
+  .quota-value {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .main-content,
+  .dashboard-content {
+    padding: 15px;
+  }
+
+  .login-card {
+    padding: 20px;
+  }
+
+  .login-card h2 {
+    font-size: 16px;
+  }
+
+}
+
+/* ==================== ANALÍTICA: GRÁFICOS DE BARRAS (HTML/CSS, sin librerías) ==================== */
+.chart-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-x: auto;
+  /* Margen de seguridad: con columnas de grilla en max-content, el
+     redondeo de sub-píxel del motor de layout puede dejar scrollWidth
+     2-3px por encima del ancho real (cada fila mide justo el 100% del
+     contenedor por separado) -- sin este colchón aparecía una barra de
+     scroll horizontal fantasma, sin nada real que desplazar. */
+  padding-right: 6px;
+}
+
+.chart-row {
+  /* Columnas elásticas (minmax, no un ancho fijo): antes exigían 520px de
+     mínimo y la tarjeta (min(420px, 100%)) quedaba más angosta que eso,
+     así que SIEMPRE aparecía la barra de scroll horizontal de .chart-wrap
+     -- ni con pocos gráficos entraba entero. Con minmax, la fila se
+     achica junto con la tarjeta y el gráfico se ve completo sin scroll;
+     el rótulo sigue truncando con "…" (chart-row-label) si no entra. */
+  /* La columna de valor va a max-content (se ajusta exacto al número más
+     largo de ESE gráfico, sin adivinar un ancho fijo que a veces sobra y
+     a veces se queda corto) -- el rótulo se lleva el resto y trunca con
+     "…" si hace falta. */
+  display: grid;
+  grid-template-columns: minmax(70px, 150px) minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.chart-row-label {
+  font-size: 12px;
+  color: var(--dark-gray);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+.chart-row-track {
+  position: relative;
+  height: 20px;
+  background-color: var(--light-gray);
+  border-radius: 3px;
+}
+
+.chart-row-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+  background-color: var(--dark-gray);
+  min-width: 3px;
+}
+
+.chart-row-bar.chart-bar-good {
+  background-color: var(--dark-gray);
+}
+
+.chart-row-bar.chart-bar-bad {
+  background-color: var(--primary-red);
+}
+
+.chart-row-value {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--dark-gray);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.chart-row-value.chart-value-bad {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+.chart-row-value.chart-value-good {
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+
+/* Divergente (polaridad): barra que crece desde una línea central a 0,
+   hacia la izquierda (excedida, en rojo) o la derecha (con economía, en
+   negro/gris — el rojo queda reservado para lo que necesita atención). */
+.chart-diverge-track {
+  position: relative;
+  height: 20px;
+  background-color: var(--light-gray);
+  border-radius: 3px;
+}
+
+.chart-diverge-zero {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--gray);
+}
+
+.chart-diverge-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  min-width: 3px;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .chart-row {
+    grid-template-columns: minmax(60px, 130px) minmax(0, 1fr) max-content;
+    gap: 6px;
+  }
+
+  .chart-row-label {
+    font-size: 11px;
+  }
+}
+
+/* ---------- Columnas verticales (tendencia mensual, histograma) ---------- */
+.chart-columns {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 170px;
+  padding-top: 22px;
+  overflow-x: auto;
+}
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  /* Antes era flex:1 -- con pocos meses/franjas eso estiraba cada columna
+     para llenar todo el ancho de la tarjeta, dejando la barra angosta
+     perdida en medio de un espacio en blanco enorme. Ahora cada columna
+     mide lo que necesita su contenido (con un techo), así quedan una al
+     lado de la otra en vez de desparramadas -- y si algún día hay muchos
+     más datos, el contenedor ya tiene overflow-x: auto para hacer scroll. */
+  flex: 0 0 auto;
+  width: 90px;
+  height: 100%;
+}
+
+.chart-column-value {
+  font-size: 10px;
+  color: var(--dark-gray);
+  margin-bottom: 3px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-column-bar {
+  width: 100%;
+  max-width: 36px;
+  border-radius: 4px 4px 0 0;
+  background-color: var(--dark-gray);
+  min-height: 2px;
+}
+
+.chart-column-label {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 6px;
+  white-space: nowrap;
+}
+
+/* ---------- Columna apilada (curva de devengamiento: real + proyectado) --- */
+.chart-column-bar-stack {
+  width: 100%;
+  max-width: 36px;
+  min-height: 2px;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-column-bar-real {
+  background-color: var(--dark-gray);
+}
+
+.chart-column-bar-proyectado {
+  /* Rayado diagonal, no un gris liso: que se note a simple vista que ese
+     tramo es una estimación (Proyeccion), no un dato real de RAFAM. */
+  background-image: repeating-linear-gradient(45deg, var(--gray) 0, var(--gray) 4px, var(--light-gray) 4px, var(--light-gray) 8px);
+}
+
+.chart-legend-swatch-real {
+  background-color: var(--dark-gray);
+}
+
+.chart-legend-swatch-proyectado {
+  background-image: repeating-linear-gradient(45deg, var(--gray) 0, var(--gray) 3px, var(--light-gray) 3px, var(--light-gray) 6px);
+}
+
+/* ---------- Tendencia (línea SVG) ---------- */
+.chart-trend {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.chart-trend svg {
+  display: block;
+}
+
+/* ---------- Composición (barra apilada al 100%) ---------- */
+.chart-composition {
+  display: flex;
+  height: 30px;
+  border-radius: 3px;
+  overflow: hidden;
+  gap: 2px;
+}
+
+.chart-composition-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ---------- Detalle por Secretaría (analítica) ---------- */
+.analitica-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.analitica-selector label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+/* ---------- Badge de pendientes en el menú ---------- */
+.nav-badge {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background-color: var(--primary-red);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 16px;
+  margin-left: 6px;
+}
+
+/* ---------- Aprobaciones ---------- */
+.aprobacion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aprobacion-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid var(--primary-red);
+  border-radius: 5px;
+  background-color: var(--white);
+}
+
+.aprobacion-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.aprobacion-info strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.aprobacion-concepto {
+  font-size: 13px;
+  color: var(--dark-gray);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.aprobacion-meta {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.aprobacion-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.aprobacion-monto {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.aprobacion-botones {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Analítica: selector de modo (Visión general / Por Secretaría) ---------- */
+.analitica-modo-selector {
+  display: inline-flex;
+  border: 1px solid var(--dark-gray);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.analitica-modo-btn {
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: var(--white);
+  color: var(--dark-gray);
+  border: none;
+  border-right: 1px solid var(--dark-gray);
+  cursor: pointer;
+}
+
+.analitica-modo-btn:last-child {
+  border-right: none;
+}
+
+.analitica-modo-btn.active {
+  background-color: var(--primary-red);
+  color: var(--white);
+}
+
+.analitica-modo-btn:not(.active):hover {
+  background-color: var(--light-gray);
+}
+
+/* ---------- Analítica: grupos temáticos ---------- */
+.analitica-grupo {
+  margin-bottom: 36px;
+}
+
+.analitica-grupo-titulo {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--dark-gray);
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+  border-bottom: 3px solid var(--primary-red);
+}
+
+.analitica-grupo-subtitulo {
+  font-size: 13px;
+  color: var(--gray);
+  margin: 8px 0 16px;
+}
+
+.analitica-grupo-charts {
+  /* Antes era una columna: cada gráfico del grupo (ej. "Devengamiento
+     por mes", "Comprometido vs. devengado", "Distribución de días")
+     quedaba uno debajo del otro, ocupando todo el ancho aunque el
+     contenido fuera angosto. Ahora se acomodan en grilla, uno al lado
+     del otro mientras entren (mínimo 420px cada uno), y recién bajan de
+     línea cuando ya no hay lugar -- en vez de apilarse siempre. */
+  display: grid;
+  /* min(420px, 100%) en vez de 420px a secas: si no, en pantallas
+     angostas (celular) la grilla fuerza un ancho mínimo de columna más
+     grande que el propio viewport y desborda toda la página de costado. */
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: 16px;
+}
+
+.analitica-chart-titulo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 4px;
+}
+
+/* ---------- Alertas de renovación ---------- */
+.alerta-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.alerta-add-form .field:first-child {
+  flex: 1;
+  min-width: 260px;
+}
+
+.alerta-add-form input[type="number"] {
+  width: 100px;
+}
+
+.alerta-add-form input[type="text"] {
+  width: 200px;
+}
+
+/* ---------- Selector múltiple con checkboxes (desplegable) ---------- */
+.multi-select {
+  position: relative;
+}
+
+.multi-select-trigger {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--hairline);
+  background: var(--white);
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.multi-select-trigger:hover {
+  border-color: var(--primary-red);
+}
+
+.multi-select-trigger:disabled {
+  color: var(--gray);
+  cursor: not-allowed;
+}
+
+.multi-select-panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 340px;
+  max-width: 90vw;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  box-shadow: var(--card-shadow);
+  padding: 10px;
+}
+
+.multi-select-search {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--hairline);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.multi-select-options {
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.multi-select-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 4px;
+  font-size: 13px;
+  color: var(--text);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.multi-select-option:hover {
+  background: var(--light-gray);
+}
+
+.multi-select-option input[type="checkbox"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.alerta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.alerta-card {
+  align-items: center;
+  padding: 16px 18px;
+}
+
+.alerta-card-completado {
+  opacity: 0.6;
+}
+
+.alerta-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.alerta-info strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: var(--dark-gray);
+}
+
+.alerta-concepto {
+  font-size: 13px;
+  color: var(--dark-gray);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alerta-meta {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.alerta-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+
+.alerta-aviso-label {
+  font-size: 12px;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.alerta-aviso-input {
+  width: 56px;
+  padding: 4px 6px;
+  text-align: center;
+}
+
+/* ---------- Calendario de cobertura ---------- */
+.alerta-calendario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.calendario-fila {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.calendario-fila-label {
+  width: 160px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendario-fila-meses {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+  min-width: 360px;
+}
+
+.calendario-celda {
+  padding: 6px 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--gray);
+  background: #f2f2f2;
+  border-radius: 3px;
+  border: 1px solid transparent;
+}
+
+.calendario-cubierto-vigente {
+  background: var(--dark-gray);
+  color: var(--white);
+}
+
+.calendario-cubierto-por_vencer {
+  background: #e0e0e0;
+  color: var(--dark-gray);
+  font-weight: 700;
+}
+
+.calendario-cubierto-vencido {
+  background: var(--primary-red);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.calendario-cubierto-completado {
+  background: #f2f2f2;
+  color: var(--gray);
+  text-decoration: line-through;
+}
+
+.calendario-hoy {
+  border-color: var(--primary-red);
+}
+
+/* ---------- Filtro por etiqueta: franja con borde suave + un
+   desplegable (antes eran chips por botón, se cambió a <select> a
+   pedido) que aísla la etiqueta elegida en la lista y el calendario. --- */
+.chip-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 20px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  font-size: 12.5px;
+  color: var(--gray);
+}
+
+.chip-bar-wrap .lbl-strong {
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.chip-bar-wrap .chip-bar-note {
+  font-size: 12px;
+}
+
+/* ---------- Etiqueta editable por suministro en seguimiento ---------- */
+.alerta-etiqueta-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 6px;
+}
+
+.alerta-etiqueta-input {
+  padding: 4px 8px;
+  font-size: 12px;
+  width: 170px;
+}
+/* ==================== CAPA MUNICIPAL (sde_v2) ====================
+   Componentes propios del sitio con la estética de global.css: misma
+   tipografía, tarjetas, tablas, botones y controles que formulario-17 y el
+   sitio de Alertas. Va al final para ganarle a las reglas de más arriba. */
+
+/* Títulos de sección: Neo Sans (global.css deja h3 en Neo Sans Ultra, que
+   en bloques chicos queda pesado). */
+h3,
+h4 {
+  font-family: "Neo Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* ---------- menú del encabezado ---------- */
+.municipal-nav .nav-ayuda {
+  color: #aaa;
+  font-weight: 400;
+}
+.nav-badge {
+  background: var(--moron-red);
+  border-radius: 999px;
+  color: #fff;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 1;
+  margin-left: 4px;
+  min-width: 18px;
+  padding: 3px 6px;
+  text-align: center;
+}
+
+/* ---------- contenido: mismo ancho y márgenes que .app-main ---------- */
+.dashboard-content {
+  margin: 0 auto;
+  max-width: 1320px;
+  min-height: calc(100vh - 262px);
+  padding: 40px 32px 64px;
+}
+
+.panel-header {
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 4px;
+  padding-bottom: 24px;
+}
+.panel-header h2 {
+  color: var(--moron-red);
+  font: 900 clamp(30px, 3.6vw, 44px) / 1.1 "Neo Sans Ultra", "Neo Sans", sans-serif;
+  letter-spacing: -0.025em;
+  margin: 0 0 8px;
+}
+.panel-header .subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 760px;
+}
+
+/* ---------- tarjetas (.card de global.css) ---------- */
+.dashboard-section {
+  border: 1px solid var(--moron-border);
+  border-radius: 5px;
+  box-shadow: none;
+}
+.panel > .dashboard-section,
+.dashboard-grid > .dashboard-section {
+  border-top: 4px solid var(--moron-red);
+}
+.dashboard-section h3 {
+  color: #303030;
+  font-size: 20px;
+}
+
+.quick-link-card {
+  border: 1px solid var(--moron-border);
+  border-top: 4px solid var(--moron-red);
+  border-radius: 0;
+  padding: 20px 22px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.quick-link-card:hover {
+  background: #fff;
+  border-color: var(--moron-border);
+  border-top-color: var(--moron-red);
+  box-shadow: 0 8px 22px #0000000c;
+  transform: translateY(-3px);
+}
+.quick-link-card h4 {
+  color: var(--moron-red);
+  font-size: 17px;
+}
+
+/* ---------- contadores ---------- */
+.stats-row {
+  border-radius: 0;
+  border-top: 4px solid var(--moron-charcoal);
+  box-shadow: none;
+}
+.stat-card {
+  padding: 18px 20px;
+}
+.stat-value {
+  font: 900 26px / 1.1 "Neo Sans Ultra", "Neo Sans", sans-serif;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  color: #666;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+}
+.quota-value {
+  font-family: "Neo Sans Ultra", "Neo Sans", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- tablas (.table de global.css) ---------- */
+.table-header,
+.difusion-table thead th {
+  background: #f1f1f1;
+  border-bottom: 2px solid #e0e0e0;
+  color: #4a4a4a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.supply-row:hover,
+.difusion-table tbody tr:hover {
+  background: #fff9f9;
+}
+.table-footer {
+  background: #f4f4f4;
+  border-top: 2px solid #ddd;
+}
+
+/* ---------- botones (.btn-primary / .btn-secondary de global.css) ---------- */
+.btn-login,
+.btn {
+  border-radius: 3px;
+  font-weight: 700;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn.primary {
+  background: var(--moron-red-dark);
+  border: 1px solid var(--moron-red-dark);
+  color: #fff;
+}
+.btn.primary:hover:not(:disabled) {
+  background: #b9131c;
+  border-color: #b9131c;
+}
+.btn.ghost {
+  background: #fff;
+  border: 1px solid #cdcdcd;
+  color: #383838;
+}
+.btn.ghost:hover:not(:disabled) {
+  background: #f4f4f4;
+  border-color: #777;
+}
+.btn.warn {
+  border-color: #777;
+}
+
+/* ---------- controles (.form-control de global.css) ---------- */
+.field label,
+.form-group label {
+  color: #3f3f3f;
+  font-size: 13px;
+  font-weight: 700;
+}
+.field input,
+.field select,
+.field textarea,
+.form-group input,
+.search-input,
+.filter-select {
+  background: #fff;
+  border: 1px solid #d6d6d6;
+  border-radius: 3px;
+  color: #262626;
+  font-size: 14px;
+  min-height: 42px;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.form-group input:focus,
+.search-input:focus,
+.filter-select:focus {
+  border-color: var(--moron-red);
+  box-shadow: 0 0 0 3px #f01c240d;
+  outline: none;
+}
+.field input:disabled {
+  background: #ededed;
+  color: #777;
+}
+
+/* Barra de filtros (.search-bar de global.css): los desplegables con
+   nombres largos de oficina/Secretaría bajan de renglón en vez de
+   empujar la página hacia los costados. */
+.table-toolbar {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.table-toolbar .search-input {
+  flex: 2 1 240px;
+  min-width: 0;
+}
+.table-toolbar .filter-select {
+  flex: 1 1 180px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* ---------- estados (.badge de global.css) ---------- */
+.status-badge {
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  text-transform: uppercase;
+}
+.status-approved {
+  background: #edf3ec;
+  color: #3b643b;
+}
+.status-pending {
+  background: #f7efe1;
+  color: #805d18;
+}
+.status-rejected {
+  background: #fff6f6;
+  color: #8a1c1c;
+}
+.status-badge-proyectado,
+.status-badge-sin-datos {
+  padding: 3px 7px;
+}
+
+.chip-bar-wrap {
+  background: #fff;
+  border-left: 4px solid var(--moron-red);
+  border-radius: 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 28px 20px 48px;
+  }
+}
+@media (max-width: 640px) {
+  .dashboard-content {
+    padding: 28px 16px 40px;
+  }
+  .panel-header {
+    padding-bottom: 18px;
+  }
+}
+
+/* Gráficos de columnas (Devengamiento, Analítica): las columnas se achican
+   hasta entrar en la tarjeta -- sin barra de desplazamiento, el gráfico
+   completo a la vista. Siguen sin estirarse de más (tope de 90px). */
+.chart-columns {
+  overflow-x: visible;
+}
+.chart-column {
+  flex: 1 1 0;
+  max-width: 90px;
+  min-width: 0;
+  width: auto;
+}
+@media (max-width: 640px) {
+  .chart-columns {
+    gap: 3px;
+  }
+  /* En el celular no entran los montos arriba de cada columna: quedan en
+     el tooltip de la barra (tocándola). */
+  .chart-column-value {
+    visibility: hidden;
+  }
+  .chart-column-label {
+    font-size: 9px;
+  }
+}
+
+/* Nada más ancho que la pantalla: las tarjetas y contadores pueden
+   achicarse (min-width: 0), los encabezados bajan de renglón y las tablas
+   anchas se desplazan dentro de su propio recuadro en el celular, no la
+   página entera. */
+.dashboard-grid > *,
+.dashboard-section,
+.stat-card {
+  min-width: 0;
+}
+.stat-value {
+  overflow-wrap: anywhere;
+}
+.panel-header,
+.section-header-row {
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.oficina-select {
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  .supplies-table {
+    overflow-x: auto;
+  }
+  .supplies-table > .table-header,
+  .supplies-table > .table-body,
+  .supplies-table > .table-footer {
+    min-width: 680px;
+  }
+}
+@media (max-width: 640px) {
+  .stat-value {
+    font-size: 20px;
+  }
+}

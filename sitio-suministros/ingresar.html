@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ingresar - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/global.css?v=20261007a" />
+</head>
+<!-- Página pública (sin sesión): el Worker la entrega a cualquiera junto con
+     municipal.css, fuentes, logo y foto. Todo lo demás del sitio exige haber
+     ingresado. El formulario lo valida el servidor (/api/auth/ingresar). -->
+<body>
+  <main class="login-layout">
+    <section class="login-brand-panel">
+      <span class="login-logo">
+        <img src="/brand/moron-logo.png" alt="Municipio de Morón" width="100" height="110" />
+      </span>
+      <div>
+        <span class="eyebrow light">Subsecretaría de Planificación Presupuestaria y Estadística</span>
+        <h1>Sistema de Suministros</h1>
+        <p>Pedidos de RAFAM, aprobación con cuota y seguimiento de cada suministro del municipio.</p>
+      </div>
+      <span class="login-photo-caption">Municipio de Morón</span>
+    </section>
+    <section class="login-form-panel">
+      <div class="login-form-wrap">
+        <span class="eyebrow">Bienvenido / Bienvenida</span>
+        <h2>Suministros.</h2>
+        <p class="login-intro">Ingresá con tu legajo y la contraseña que te dio la Subsecretaría.</p>
+
+        <div id="loginAviso" class="alert" role="alert" hidden></div>
+
+        <form method="post" action="/api/auth/ingresar">
+          <input type="hidden" name="volver" id="volver" value="/dashboard.html" />
+          <label class="form-group">Legajo
+            <input class="form-control" name="legajo" id="legajo" required autofocus autocomplete="username" inputmode="numeric" placeholder="Ej: 310019" />
+          </label>
+          <label class="form-group">Contraseña
+            <input class="form-control" type="password" name="clave" required autocomplete="current-password" placeholder="Tu contraseña" />
+          </label>
+          <button class="btn btn-primary login-submit" type="submit">Iniciar sesión <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="login-note">
+          ¿No tenés usuario o te olvidaste la contraseña? Pedíselo a la Subsecretaría:
+          dir.presupuesto@moron.gob.ar · Interno 7714.
+        </p>
+        <a class="login-site-link" href="https://www.moron.gob.ar/" target="_blank" rel="noreferrer">www.moron.gob.ar ↗</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var volver = p.get('volver');
+      if (volver && volver.charAt(0) === '/' && volver.charAt(1) !== '/') document.getElementById('volver').value = volver;
+      var mensajes = {
+        invalido: ['alert-error', 'Legajo o contraseña incorrectos.'],
+        bloqueado: ['alert-error', 'Demasiados intentos fallidos. Esperá unos minutos y volvé a probar.'],
+        config: ['alert-warning', 'Falta configurar el sitio (secret SESSION_SECRET en Cloudflare).']
+      };
+      var m = mensajes[p.get('error')];
+      if (m) {
+        var aviso = document.getElementById('loginAviso');
+        aviso.className = 'alert ' + m[0];
+        aviso.textContent = m[1];
+        aviso.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>

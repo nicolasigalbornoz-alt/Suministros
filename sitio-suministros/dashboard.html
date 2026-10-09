@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageHome">
+        <div class="panel-header">
+          <div>
+            <h2>Panel de gestión de suministros</h2>
+            <p class="subtitle">Resumen de cuota, alertas activas y accesos al sistema.</p>
+          </div>
+        </div>
+
+        <div class="stats-row" id="statsRow"></div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-section" id="quotaSection">
+            <h3 id="quotaSectionTitle">Cuota y disponibilidad</h3>
+            <p id="quotaSectionSubtitle" class="detail-text" hidden></p>
+            <div class="quota-info" id="quotaInfo"></div>
+            <div class="quota-progress" id="quotaProgressWrapper">
+              <div class="quota-progress-track">
+                <div id="quotaProgressFill" class="quota-progress-fill"></div>
+              </div>
+              <span id="quotaProgressLabel" class="quota-progress-label"></span>
+            </div>
+          </div>
+
+          <div class="dashboard-section" id="alertsSection">
+            <h3>Cuota insuficiente</h3>
+            <p class="detail-text">Suministros de la planilla oficial marcados con cuota insuficiente.</p>
+            <div id="alertsList" class="alerts-list"></div>
+          </div>
+        </div>
+
+        <div class="dashboard-section" id="renovacionSection" hidden>
+          <div class="section-header-row">
+            <h3>Alertas de renovación</h3>
+            <a href="/api/alertas/ir" class="field-hint">Ver todas y agregar más →</a>
+          </div>
+          <p class="detail-text">Suministros que usted eligió seguir y que ya vencieron o están por vencer.</p>
+          <div id="renovacionList" class="alerts-list"></div>
+        </div>
+
+        <div class="dashboard-section" id="quickLinksSection">
+          <h3>Accesos</h3>
+          <div class="quick-links-grid" id="quickLinks"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="cuota-110-data.js?v=20260828n" defer></script>
+  <script src="cuota-131-data.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

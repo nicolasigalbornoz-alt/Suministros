@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analítica - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageAnalitica">
+        <div class="panel-header">
+          <div>
+            <h2>Analítica</h2>
+            <p class="subtitle">Suministros, cuota y devengamiento reales. Solo visible para legajo 310019.</p>
+          </div>
+        </div>
+
+        <div id="analiticaRestrictedNote" class="info-card" hidden>
+          <h3>Acceso restringido</h3>
+          <p>Esta sección solo está disponible para el legajo 310019.</p>
+        </div>
+
+        <div id="analiticaContent">
+          <!-- Selector de modo: primero se elige "todo el municipio" o una
+               Secretaría puntual; el resto de la página cambia según eso. -->
+          <div class="analitica-modo-selector" role="tablist">
+            <button type="button" class="analitica-modo-btn active" id="modoGeneralBtn" role="tab" aria-selected="true">Visión general</button>
+            <button type="button" class="analitica-modo-btn" id="modoSecretariaBtn" role="tab" aria-selected="false">Por Secretaría</button>
+          </div>
+
+          <div class="analitica-selector" id="analiticaSelectorWrapper" hidden>
+            <label for="analiticaSecretariaSelect">Secretaría</label>
+            <select id="analiticaSecretariaSelect" class="filter-select"></select>
+          </div>
+
+          <div class="stats-row stats-row-4" id="analiticaStats"></div>
+
+          <!-- ================= VISIÓN GENERAL (sin filtrar por Secretaría) ================= -->
+          <div id="analiticaGeneralView">
+
+            <div class="analitica-grupo">
+              <h3 class="analitica-grupo-titulo">Cuota y ejecución</h3>
+              <p class="analitica-grupo-subtitulo">Cómo viene el municipio contra su presupuesto asignado, trimestre a trimestre. El detalle por Secretaría está en Presupuesto.</p>
+              <div class="analitica-grupo-charts">
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Ejecución trimestral — Municipio (Fuente 110)</div>
+                  <p class="detail-text">Cuota vs. ejecutado por trimestre. El total anual puede esconder trimestres puntuales donde se ejecutó por encima de lo previsto.</p>
+                  <div id="chartTendenciaTrimestral" class="chart-wrap"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="analitica-grupo">
+              <h3 class="analitica-grupo-titulo">Situación financiera (RAFAM Contabilidad)</h3>
+              <p class="analitica-grupo-subtitulo">Recursos Afectados, Balance General y deuda con proveedores, extraídos de rafamor.pages.dev (actualización diaria automática). No pasa por la planilla de suministros — es RAFAM directo.</p>
+              <div class="analitica-grupo-charts">
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Recursos Afectados — Comprometido vs. Devengado de Gastos</div>
+                  <p class="detail-text">Últimos 12 meses. Comprometido es lo reservado contra el fondo; Devengado de Gastos es lo ya recibido/facturado con cargo a ese fondo.</p>
+                  <div id="chartRecursosComprometidoDevengado" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Top 10 rubros por Devengado de Gastos</div>
+                  <p class="detail-text">Suma de todo el período disponible (2025–2026), por rubro de Recursos Afectados.</p>
+                  <div id="chartTopRubrosRecursos" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Balance General — Activo / Pasivo / Patrimonio Neto</div>
+                  <p class="detail-text">Últimos 12 meses, saldo de cierre de cada mes (cuentas de nivel 1). Signo tal cual lo guarda RAFAM.</p>
+                  <div id="chartBalanceEvolucion" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Top 15 proveedores por deuda actual</div>
+                  <p class="detail-text">Saldo de Cuenta Corriente de la última semana disponible (negativo = el municipio le debe a ese proveedor).</p>
+                  <div id="chartTopProveedoresDeuda" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Deuda total con proveedores — evolución semanal</div>
+                  <p class="detail-text">Últimas 12 semanas. Suma de todos los saldos negativos de Cuenta Corriente Proveedores.</p>
+                  <div id="chartDeudaProveedoresSemanal" class="chart-wrap"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="analitica-grupo">
+              <h3 class="analitica-grupo-titulo">Devengamiento y circuito</h3>
+              <p class="analitica-grupo-subtitulo">Qué tan rápido se resuelven los trámites y cuánto de lo comprometido ya se recibió de verdad.</p>
+              <div class="analitica-grupo-charts">
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Devengamiento por mes</div>
+                  <p class="detail-text">Monto devengado (Recepción real del bien/servicio registrada en RAFAM) por mes, de los pedidos con Orden de Compra real.</p>
+                  <div id="chartDevengamientoPorMes" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Comprometido vs. devengado</div>
+                  <p class="detail-text">De los pedidos con Orden de Compra real: cuánto ya se devengó (se recibió el bien/servicio) contra cuánto sigue comprometido, pendiente de recepción.</p>
+                  <div id="chartComprometidoDevengado" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Distribución de días de trámite</div>
+                  <p class="detail-text">Días entre la fecha de carga y la Orden de Compra (solo suministros con ambas fechas). La mediana suele esconder una cola larga de trámites demorados.</p>
+                  <div id="chartHistogramaDias" class="chart-wrap"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="analitica-grupo">
+              <h3 class="analitica-grupo-titulo">Suministros</h3>
+              <p class="analitica-grupo-subtitulo">Volumen de la planilla real: cuándo se cargan, dónde están y qué Secretarías cargan más.</p>
+              <div class="analitica-grupo-charts">
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Suministros cargados por mes</div>
+                  <p class="detail-text">Cantidad de suministros de la planilla real, por mes de carga.</p>
+                  <div id="chartSuministrosPorMes" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Suministros por oficina</div>
+                  <p class="detail-text">En qué etapa del circuito administrativo está cada suministro de la planilla real.</p>
+                  <div id="chartOficinas" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Top 10 Secretarías por cantidad</div>
+                  <p class="detail-text">Suministros cargados en la planilla real, por Secretaría. Léase junto con el gráfico de monto: no siempre coinciden.</p>
+                  <div id="chartTopCantidad" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Top 10 Secretarías por monto</div>
+                  <p class="detail-text">Suma de Adjudicado (o Monto solicitado si todavía no tiene adjudicación) de la planilla real.</p>
+                  <div id="chartTopMonto" class="chart-wrap"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="analitica-grupo">
+              <h3 class="analitica-grupo-titulo">Proveedores y conceptos</h3>
+              <p class="analitica-grupo-subtitulo">En qué se gasta y qué tan concentrado está en pocos proveedores.</p>
+              <div class="analitica-grupo-charts">
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Concentración de proveedores</div>
+                  <p class="detail-text" id="notaConcentracionProveedores"></p>
+                  <div id="chartConcentracionProveedores" class="chart-wrap"></div>
+                </div>
+                <div class="dashboard-section">
+                  <div class="analitica-chart-titulo">Top 15 conceptos por monto</div>
+                  <p class="detail-text">Pedidos de Suministro con Orden de Compra real (hoja de ruta de RAFAM), por monto. El concepto es la observación real de la orden.</p>
+                  <div id="chartTopConceptos" class="chart-wrap"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ================= DETALLE POR SECRETARÍA ================= -->
+          <div id="analiticaSecretariaView" hidden>
+            <div id="analiticaSecretariaDetalle"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="cuota-110-data.js?v=20260828n" defer></script>
+  <script src="cuota-131-data.js?v=20260828n" defer></script>
+  <script src="pedidos-suministro-data.js?v=20260828n" defer></script>
+  <script src="rafamor-financiero-data.js?v=20260909a" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

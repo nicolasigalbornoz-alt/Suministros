@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuevo suministro - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageNuevoSuministro">
+        <div class="panel-header">
+          <div>
+            <h2>Registro de suministro</h2>
+            <p class="subtitle">Autorización provisional: número de suministro, mes de inicio y meses de consumo.</p>
+          </div>
+        </div>
+
+        <div class="dashboard-section">
+          <div id="supplyFormWrapper">
+            <p class="detail-text">Solo un área habilitada puede emitir la autorización provisional. El área queda fijada por la sesión iniciada y no puede modificarse, para evitar autorizaciones en blanco. El N° de suministro es el N° de Pedido de Suministro de la hoja de ruta de RAFAM: tiene que tener al menos una Orden de Compra real asociada, de ahí salen la Fuente de Financiamiento y el Monto reales. El resto de los datos (dependencia, partida, remito, etc.) se completa después en RAFAM al vincular el número con la planilla oficial.</p>
+
+            <h3 class="detail-subheading">Cuota de referencia (fuentes de financiamiento)</h3>
+            <p class="detail-text">Panorama general de cuota del área antes de cargar. Al cargar, se usa la Fuente real del pedido (no necesariamente la que más margen tenga acá): si esa Fuente está excedida, o si el número no tiene Orden de Compra registrada, la carga se interrumpe.</p>
+            <div id="rutasEvaluacion"></div>
+
+            <form id="supplyForm" class="form form-grid">
+              <div class="field full-width">
+                <label for="areaResponsable">Área responsable (Secretaría)</label>
+                <input type="text" id="areaResponsable" name="areaResponsable" disabled />
+              </div>
+
+              <div class="field">
+                <label for="numeroSuministro">N° de suministro (N° de Pedido de Suministro en RAFAM)</label>
+                <input type="number" id="numeroSuministro" name="numeroSuministro" min="1" step="1" placeholder="Ej. 1254" required />
+                <span class="field-hint">Tiene que ser un N° de Pedido de Suministro con al menos una Orden de Compra ya registrada en RAFAM. Si no existe, la carga se rechaza.</span>
+              </div>
+
+              <div class="field">
+                <label for="mesInicio">Mes de inicio</label>
+                <input type="month" id="mesInicio" name="mesInicio" max="2026-12" required />
+              </div>
+
+              <div class="field">
+                <label for="mesesConsumo">Meses de consumo</label>
+                <input type="number" id="mesesConsumo" name="mesesConsumo" min="1" step="1" inputmode="numeric" placeholder="Ej. 12" required />
+                <span class="field-hint">Cantidad de meses que cubre el suministro. Debe ser un número entero, sin decimales. Junto con el mes de inicio, no puede terminar después de diciembre de 2026.</span>
+              </div>
+
+              <button type="submit" class="btn primary full-width">Solicitar aprobación provisional</button>
+            </form>
+            <!-- Si Control 3 frena la carga por Fuente excedida, la opción de
+                 pedir una aprobación excepcional aparece en el pop up (ver
+                 advertirPedidoSinEconomia, NuevoSuministroPage) -- no acá. -->
+            <div id="supplyMessage" class="message" aria-live="polite"></div>
+          </div>
+
+          <div id="soloConsultaNote" class="info-card" hidden>
+            <h3>Perfil de consulta</h3>
+            <p>Su perfil (<strong id="soloConsultaRol"></strong>) permite consultar cuota, listado de suministros, detalle del proceso y calendarización, pero no habilita a emitir autorizaciones provisionales. Esa acción está reservada a los responsables de cada área. Puede consultar el estado de los suministros en <a href="suministros.html">Suministros</a>.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <!-- La planilla de suministros es necesaria acá para detectar si el número
+       de suministro que se intenta cargar ya existe. -->
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="cuota-110-data.js?v=20260828n" defer></script>
+  <script src="cuota-131-data.js?v=20260828n" defer></script>
+  <script src="pedidos-suministro-data.js?v=20260828n" defer></script>
+  <script src="remito.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>

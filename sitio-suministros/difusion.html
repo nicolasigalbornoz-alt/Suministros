@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Difusión - Sistema de Suministros - Municipalidad de Morón</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="/fonts/neo-sans-ultra.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="global.css?v=20261007a" />
+  <link rel="stylesheet" href="styles.css?v=20261007a" />
+</head>
+<body>
+  <div class="layout">
+    <!-- HEADER, SIDEBAR y FOOTER se completan desde Layout (script.js), fuente única del marco compartido -->
+    <header class="municipal-header" id="appHeader"></header>
+    <aside class="sidebar" id="appSidebar"></aside>
+
+    <main class="main-content dashboard-content">
+      <section class="panel dashboard" id="pageDifusion">
+        <div class="panel-header">
+          <div>
+            <h2>Difusión de cuota</h2>
+            <p class="subtitle">Cuota liberada trimestre a trimestre — el mismo reporte que se comunica a cada Secretaría.</p>
+          </div>
+        </div>
+
+        <!-- Cuentas de área: sin selector, siempre su propia Secretaría -->
+        <p id="difusionNotaArea" class="detail-text" hidden></p>
+
+        <!-- Perfiles centrales: eligen qué Secretaría ver -->
+        <div class="analitica-selector" id="difusionSelectorWrapper" hidden>
+          <label for="difusionSecretariaSelect">Secretaría</label>
+          <select id="difusionSecretariaSelect" class="filter-select"></select>
+        </div>
+
+        <div id="difusionContent"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="municipal-footer" id="appFooter"></footer>
+  </div>
+
+  <script src="suministros-data.js?v=20260828n" defer></script>
+  <script src="cuota-110-data.js?v=20260828n" defer></script>
+  <script src="cuota-131-data.js?v=20260828n" defer></script>
+  <script src="script.js?v=20261007a" defer></script>
+</body>
+</html>
