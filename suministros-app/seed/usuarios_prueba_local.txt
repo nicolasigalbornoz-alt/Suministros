@@ -1,0 +1,6 @@
+Usuarios de prueba (solo base local de wrangler dev):
+  900001  Subsecretaría de Planificación Presupuestaria y Estadística  (admin)
+  900003  Salud  (area)
+  900005  Educación y Des. De la Com.  (area)
+  900008  Dirección de Compras  (compras)
+Clave de todos: 3jzn-bt3p-qak5

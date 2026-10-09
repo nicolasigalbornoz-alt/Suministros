@@ -1,0 +1,42 @@
+name = "suministros"
+compatibility_date = "2025-01-01"
+# Las variables que se carguen a mano en el dashboard no se borran en cada deploy.
+keep_vars = true
+
+# Worker nativo (sin Astro): sirve las páginas de ../sitio-suministros como
+# assets estáticos y agrega la API sobre D1. run_worker_first hace que TODO
+# pedido pase primero por worker/index.ts, que exige sesión antes de
+# entregar cualquier página (ver PUBLICAS en worker/index.ts).
+main = "worker/index.ts"
+
+[assets]
+directory = "../sitio-suministros"
+binding = "ASSETS"
+run_worker_first = true
+# Los links internos del sitio usan "pagina.html": se sirven tal cual, sin
+# redirecciones a la versión sin extensión.
+html_handling = "none"
+not_found_handling = "none"
+
+[vars]
+# Ejercicio que se sincroniza de RAFAMOR y se muestra en la página.
+EJERCICIO = "2026"
+RAFAMOR_URL = "https://rafamor.pages.dev"
+# Sitio aparte de Alertas de renovación (alertas-app/), misma base D1.
+ALERTAS_URL = "https://alertas-suministros.moron-presupuesto.workers.dev"
+
+# Sincronización diaria con RAFAMOR: 09:00 UTC = 06:00 en Argentina.
+[triggers]
+crons = ["0 9 * * *"]
+
+# Base creada con `wrangler d1 create suministros_db` (ver README.md).
+[[d1_databases]]
+binding = "DB"
+database_name = "suministros_db"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# Secrets (no van acá):
+#   wrangler secret put SESSION_SECRET  clave aleatoria que firma la cookie de sesión
+#   wrangler secret put SSO_SECRET      LA MISMA que en el Worker `alertas-suministros`
+#   wrangler secret put RAFAMOR_BASIC   "usuario:clave" de rafamor.pages.dev
